@@ -1,0 +1,23 @@
+{
+  "name": "asyncbuilder",
+  "version": "1.1.1",
+  "description": "simple semi-asynchronous array builder",
+  "main": "asyncbuilder.js",
+  "dependencies": {},
+  "devDependencies": {
+    "lodash.partial": "^4.2.1"
+  },
+  "files": [
+    "asyncbuilder.js"
+  ],
+  "scripts": {
+    "test": "eslint . && tape test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jldec/pub-server-monorepo.git",
+    "directory": "packages/asyncbuilder"
+  },
+  "author": "Jürgen Leschner",
+  "license": "MIT"
+}

@@ -1,0 +1,18 @@
+{
+  "name": "pub-server-monorepo",
+  "private": true,
+  "description": "Monorepo for pub-server packages",
+  "license": "MIT",
+  "author": "Jürgen Leschner",
+  "scripts": {
+    "test": "pnpm -r run test",
+    "lint": "eslint .",
+    "release": "changeset publish"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.29.8",
+    "@eslint/js": "^9.39.2",
+    "eslint": "^9.39.2",
+    "tape": "^5.9.0"
+  }
+}
