@@ -46,6 +46,10 @@ rm -rf node_modules .DS_Store
 }
 ```
 
+**Update internal dependencies to use workspace:**
+- If the package depends on other packages in the monorepo (e.g., `date-plus`, `asyncbuilder`), change the version to `workspace:*`
+- Example: `"date-plus": "^1.2.0"` → `"date-plus": "workspace:*"`
+
 **Keep package-specific devDependencies** (e.g., `lodash.partial` for asyncbuilder)
 
 ### Install Dependencies
