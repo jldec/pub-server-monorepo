@@ -1,0 +1,24 @@
+{
+  "name": "pub-util",
+  "version": "3.3.0",
+  "description": "Utility toolbelt based on lodash v4 for pub-server and other pub-* packages",
+  "main": "pub-util.js",
+  "dependencies": {
+    "date-plus": "workspace:*",
+    "lodash": "^4.17.23",
+    "ms": "^2.1.3"
+  },
+  "files": [
+    "pub-util.js"
+  ],
+  "scripts": {
+    "test": "eslint . && tape test/test-*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jldec/pub-server-monorepo.git",
+    "directory": "packages/pub-util"
+  },
+  "author": "Jürgen Leschner",
+  "license": "MIT"
+}
