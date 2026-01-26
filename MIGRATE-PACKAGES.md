@@ -1,6 +1,8 @@
 # Package Migration Guide
-
 Quick reference for migrating packages from `/Users/jurgen/pub` into the monorepo.
+
+- session 1 - https://share.opencode.cloudflare.dev/share/ZySzv0bt 
+
 
 ## Steps to Migrate a Package
 
