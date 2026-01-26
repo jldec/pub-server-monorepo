@@ -28,13 +28,15 @@ export default [
         // Browser globals
         window: 'readonly',
         document: 'readonly',
+        performance: 'readonly',
       },
     },
     rules: {
-      indent: ['error', 2],
+      indent: ['error', 2, { ignoredNodes: ['ConditionalExpression'] }],
       'linebreak-style': ['error', 'unix'],
       quotes: ['error', 'single'],
       semi: ['error', 'always'],
+      'no-unused-vars': ['error', { argsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_' }],
     },
   },
   // Exception for vendored dateformat.js file in date-plus package
