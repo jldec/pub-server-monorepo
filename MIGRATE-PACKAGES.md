@@ -15,6 +15,8 @@ cp -r /Users/jurgen/pub/PACKAGE_NAME packages/
 ```bash
 cd packages/PACKAGE_NAME
 
+rm -rf .git
+
 # Remove monorepo-level configs (now at root) if they match the root settings
 rm -rf .github .editorconfig .gitignore .npmrc .gitattributes
 

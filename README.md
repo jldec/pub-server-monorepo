@@ -7,6 +7,7 @@ Monorepo for pub-server packages.
 ## 📦 Packages
 
 - **[asyncbuilder](./packages/asyncbuilder)** - Simple semi-asynchronous array builder
+- **[date-plus](./packages/date-plus)** - Javascript dates extended with dateformat
 
 ## 🚀 Development
 

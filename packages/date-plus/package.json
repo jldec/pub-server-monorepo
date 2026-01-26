@@ -1,0 +1,23 @@
+{
+  "name": "date-plus",
+  "version": "1.2.0",
+  "description": "Javascript dates extended with dateformat",
+  "main": "date-plus.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "files": [
+    "date-plus.js",
+    "dateformat.js",
+    "lang/"
+  ],
+  "scripts": {
+    "test": "eslint date-plus.js test --ignore-pattern 'dateformat.js' && tape test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jldec/pub-server-monorepo.git",
+    "directory": "packages/date-plus"
+  },
+  "author": "Jürgen Leschner",
+  "license": "MIT"
+}

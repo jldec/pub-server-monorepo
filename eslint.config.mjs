@@ -37,4 +37,12 @@ export default [
       semi: ['error', 'always'],
     },
   },
+  // Exception for vendored dateformat.js file in date-plus package
+  {
+    files: ['packages/date-plus/dateformat.js'],
+    rules: {
+      'indent': 'off',
+      'no-undef': 'off', // Uses AMD define() which is okay for vendored code
+    },
+  },
 ];
