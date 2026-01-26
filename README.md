@@ -1,3 +1,5 @@
+[![CI](https://github.com/jldec/pub-server-monorepo/workflows/CI/badge.svg)](https://github.com/jldec/pub-server-monorepo/actions)
+
 # pub-server-monorepo
 
 Monorepo for pub-server packages.
