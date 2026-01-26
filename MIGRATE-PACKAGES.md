@@ -20,6 +20,8 @@ rm -rf .github .editorconfig .eslintrc.json .gitignore .npmrc .gitattributes
 rm -rf node_modules .DS_Store
 ```
 
+Remove CI badge (if any) from the top of the README.
+
 ### 3. Update package.json
 
 **Remove from devDependencies:**
