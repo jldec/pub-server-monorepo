@@ -6,14 +6,13 @@ Instructions for AI agents working on this monorepo.
 
 - Use `pnpm` (not npm or yarn)
 - Run `pnpm install` to install dependencies
-- Run `pnpm test` to run tests
+- Run `pnpm test` and `pnpm lint` for testing
 
 ## Git Workflow
 
 - Always work in a feature branch (not main)
 - Create a new branch for each task: `git checkout -b feature-name`
-- Do NOT commit changes - let the user commit
-- Do NOT push changes - let the user push
+- Do not commit or push changes withot first allowing user to review
 
 ## Development Process
 
