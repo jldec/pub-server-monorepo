@@ -1,0 +1,33 @@
+{
+  "name": "pub-src-fs",
+  "version": "2.2.0",
+  "description": "Default file system source for pub-server and pub-generator",
+  "main": "pub-src-fs.js",
+  "dependencies": {
+    "asyncbuilder": "workspace:*",
+    "binary-extensions": "^2.2.0",
+    "debug": "4.3.6",
+    "minimatch": "^3.0.4",
+    "pub-util": "workspace:*",
+    "queue4": "workspace:*",
+    "unorm": "^1.6.0"
+  },
+  "devDependencies": {
+    "rimraf": "^3.0.2"
+  },
+  "files": [
+    "pub-src-fs.js",
+    "fs-base.js",
+    "sort-entry.js"
+  ],
+  "scripts": {
+    "test": "eslint . && tape test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jldec/pub-server-monorepo.git",
+    "directory": "packages/pub-src-fs"
+  },
+  "author": "Jürgen Leschner",
+  "license": "MIT"
+}
