@@ -6,6 +6,11 @@ Quick reference for migrating packages from `/Users/jurgen/pub` into the monorep
 
 ## Steps to Migrate a Package
 
+### Create a Feature Branch
+```bash
+git checkout -b migrate-PACKAGE_NAME
+```
+
 ### Copy Package to Monorepo
 ```bash
 cp -r /Users/jurgen/pub/PACKAGE_NAME packages/
@@ -26,7 +31,7 @@ rm -rf node_modules .DS_Store
 
 ### .eslintrc
 - Remove .eslintrc after confirming that the rules are covered by the root-level eslint.config
-- If there are additional rules, add them to the rool-level config if they are generic.
+- If there are additional rules, add them to the root-level config if they are generic.
   Otherwise create a package-level eslint config.
 
 ### Remove CI badge (if any) from the top of the README.
@@ -81,7 +86,7 @@ pnpm changeset
 ```bash
 git add .
 git commit -m "feat: migrate PACKAGE_NAME to monorepo"
-git push
+git push -u origin migrate-PACKAGE_NAME
 ```
 
 ## Key Files Already at Root
