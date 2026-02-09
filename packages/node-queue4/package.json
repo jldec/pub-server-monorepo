@@ -1,0 +1,20 @@
+{
+  "name": "queue4",
+  "version": "1.1.0",
+  "devDependencies": {
+    "superagent": "^7.0.2"
+  },
+  "dependencies": {
+    "debug": "4.3.6"
+  },
+  "scripts": {
+    "test": "eslint . && tape test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jldec/pub-server-monorepo.git",
+    "directory": "packages/node-queue4"
+  },
+  "author": "https://github.com/tj/node-queue3",
+  "license": "MIT"
+}
