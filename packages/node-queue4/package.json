@@ -1,6 +1,6 @@
 {
   "name": "queue4",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "devDependencies": {
     "superagent": "^7.0.2"
   },
