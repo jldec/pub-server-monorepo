@@ -12,6 +12,7 @@ git checkout -b migrate-PACKAGE_NAME
 ```
 
 ### Copy Package to Monorepo
+If the package is named `pub-NAME`, the source directory is `../NAME` (without the `pub-` prefix).
 ```bash
 cp -r /Users/jurgen/pub/PACKAGE_NAME packages/
 ```
@@ -23,7 +24,7 @@ cd packages/PACKAGE_NAME
 rm -rf .git
 
 # Remove monorepo-level configs (now at root) if they match the root settings
-rm -rf .github .editorconfig .gitignore .npmrc .gitattributes
+rm -rf .github .editorconfig .gitignore .npmrc .gitattributes LICENSE
 
 # Remove old dependencies
 rm -rf node_modules .DS_Store
@@ -63,6 +64,9 @@ cd /Users/jurgen/pub/pub-server-monorepo
 pnpm install
 ```
 
+### Fix Lint Errors
+The monorepo eslint config may be stricter than the package's original config (e.g., `no-unused-vars` requires unused caught errors to be prefixed with `_`). Fix any new lint errors before proceeding.
+
 ### Verify Tests Pass
 ```bash
 # Test specific package
@@ -96,6 +100,12 @@ git push -u origin migrate-PACKAGE_NAME
 - `.gitignore` - Ignores node_modules
 - `eslint.config.mjs` - ESLint configuration
 - `LICENSE` - MIT license
+
+## Release Flow
+
+The Release workflow runs twice per migration:
+1. First run: finds the changeset, creates a "chore: version packages" PR
+2. After that PR is merged: publishes the new version to npm and creates a git tag
 
 ## Notes
 
