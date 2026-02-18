@@ -52,3 +52,6 @@ jobs:
 
       - name: Test all packages
         run: pnpm run test -r
+        env:
+          ECHO_ENDPOINT: ${{ secrets.ECHO_ENDPOINT }}
+          ECHO_ENDPOINT_TOKEN: ${{ secrets.ECHO_ENDPOINT_TOKEN }}
