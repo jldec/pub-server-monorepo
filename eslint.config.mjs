@@ -29,6 +29,7 @@ export default [
         window: 'readonly',
         document: 'readonly',
         performance: 'readonly',
+        fetch: 'readonly',
       },
     },
     rules: {

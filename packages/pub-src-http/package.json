@@ -1,0 +1,23 @@
+{
+  "name": "pub-src-http",
+  "version": "2.0.0",
+  "description": "HTTP source for pub-server and pub-generator - uses built-in fetch in node and browser",
+  "main": "pub-src-http.js",
+  "dependencies": {
+  },
+  "devDependencies": {
+  },
+  "files": [
+    "pub-src-http.js"
+  ],
+  "scripts": {
+    "test": "eslint . && dotenv -e ../../.env -- tape test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jldec/pub-server-monorepo.git",
+    "directory": "packages/pub-src-http"
+  },
+  "author": "Jürgen Leschner",
+  "license": "MIT"
+}

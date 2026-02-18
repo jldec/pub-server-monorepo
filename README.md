@@ -23,12 +23,18 @@ Monorepo for pub-server packages.
 # Install dependencies
 pnpm install
 
+# Create .env file with test secrets (see .env.example)
+cp .env.example .env
+# Edit .env to add your tokens
+
 # Run tests for all packages
 pnpm test
 
 # Lint all packages
 pnpm lint
 ```
+
+Some packages require environment variables for integration tests. These are loaded from the root `.env` file using `dotenv-cli`. See `.env.example` for required variables.
 
 ### Running Tests
 
