@@ -1,0 +1,31 @@
+{
+  "name": "pub-resolve-opts",
+  "version": "1.10.0",
+  "description": "pub-config resolver for pub-generator and pub-server",
+  "main": "resolve-opts.js",
+  "dependencies": {
+    "debug": "4.3.6",
+    "logger-emitter": "workspace:*",
+    "osenv": "^0.1.5",
+    "pub-util": "workspace:*",
+    "resolve": "^1.22.8"
+  },
+  "devDependencies": {
+    "pub-pkg-jquery": "workspace:*",
+    "pub-src-fs": "workspace:*",
+    "tape-catch": "^1.0.6"
+  },
+  "files": [
+    "resolve-opts.js"
+  ],
+  "scripts": {
+    "test": "eslint . && tape test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jldec/pub-server-monorepo.git",
+    "directory": "packages/pub-resolve-opts"
+  },
+  "author": "Jürgen Leschner",
+  "license": "MIT"
+}
