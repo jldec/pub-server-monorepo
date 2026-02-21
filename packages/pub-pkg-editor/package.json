@@ -1,0 +1,25 @@
+{
+  "name": "pub-pkg-editor",
+  "version": "2.2.0",
+  "description": "simple markdown editor for pub-server",
+  "main": "pub-config.js",
+  "dependencies": {
+    "humane-js": "^3.2.2",
+    "pub-preview": "workspace:*"
+  },
+  "devDependencies": {},
+  "files": [
+    "client/",
+    "src/",
+    "static/",
+    "pub-config.js",
+    "generator-plugin.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jldec/pub-server-monorepo.git",
+    "directory": "packages/pub-pkg-editor"
+  },
+  "author": "Jürgen Leschner",
+  "license": "MIT"
+}

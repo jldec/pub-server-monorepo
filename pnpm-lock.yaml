@@ -97,6 +97,15 @@ importers:
         specifier: workspace:*
         version: link:../pub-src-fs
 
+  packages/pub-pkg-editor:
+    dependencies:
+      humane-js:
+        specifier: ^3.2.2
+        version: 3.2.2
+      pub-preview:
+        specifier: workspace:*
+        version: link:../pub-preview
+
   packages/pub-pkg-jquery: {}
 
   packages/pub-preview:
@@ -817,6 +826,9 @@ packages:
   human-id@4.1.3:
     resolution: {integrity: sha512-tsYlhAYpjCKa//8rXZ9DqKEawhPoSytweBC2eNvcaDK+57RZLHGqNs3PZTQO6yekLFSuvA6AlnAfrw1uBvtb+Q==}
     hasBin: true
+
+  humane-js@3.2.2:
+    resolution: {integrity: sha512-pNjP/9jCfUnvuXjWUq8hdXOx40lNCzh5jI3fKJFv+UsvVMU9VGSLuiKXsfYSwNx/pK7oC9lrFAnvZxX5jSUgNA==}
 
   iconv-lite@0.7.2:
     resolution: {integrity: sha512-im9DjEDQ55s9fL4EYzOAv0yMqmMBSZp6G0VvFyTMPKWxiSBHUj9NW/qqLmXUwXrrM7AvqSlTCfvqRb0cM8yYqw==}
@@ -2343,6 +2355,8 @@ snapshots:
       function-bind: 1.1.2
 
   human-id@4.1.3: {}
+
+  humane-js@3.2.2: {}
 
   iconv-lite@0.7.2:
     dependencies:
