@@ -1,0 +1,25 @@
+{
+  "name": "pub-src-redis",
+  "version": "2.4.0",
+  "description": "redis source for pub-server and pub-generator - also provides cache for other sources",
+  "main": "pub-src-redis.js",
+  "dependencies": {
+    "debug": "4.3.6",
+    "pub-src-fs": "workspace:*",
+    "pub-util": "workspace:*",
+    "redis": "^3.1.2"
+  },
+  "files": [
+    "pub-src-redis.js"
+  ],
+  "scripts": {
+    "test": "eslint . && tape test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jldec/pub-server-monorepo.git",
+    "directory": "packages/pub-src-redis"
+  },
+  "author": "Jürgen Leschner",
+  "license": "MIT"
+}
