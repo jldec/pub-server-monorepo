@@ -40,6 +40,16 @@ importers:
         specifier: ^4.3.0
         version: 4.3.0
 
+  packages/marked-images:
+    dependencies:
+      lodash.startswith:
+        specifier: ^4.2.1
+        version: 4.2.1
+    devDependencies:
+      marked:
+        specifier: ^4.3.0
+        version: 4.3.0
+
   packages/node-queue4:
     dependencies:
       debug:
@@ -944,6 +954,9 @@ packages:
 
   lodash.startcase@4.4.0:
     resolution: {integrity: sha512-+WKqsK294HMSc2jEbNgpHpd0JfIBhp7rEV4aqXWqFr6AlXov+SlcgB1Fv01y2kGe3Gc8nMW7VA0SrGuSkRfIEg==}
+
+  lodash.startswith@4.2.1:
+    resolution: {integrity: sha512-XClYR1h4/fJ7H+mmCKppbiBmljN/nGs73iq2SjCT9SF4CBPoUHzLvWmH1GtZMhMBZSiRkHXfeA2RY1eIlJ75ww==}
 
   lodash@4.17.23:
     resolution: {integrity: sha512-LgVTMpQtIopCi79SJeDiP0TfWi5CNEc/L/aRdTh3yIvmZXTnheWpKjSZhnvMl8iXbC1tFg9gdHHDMLoV7CnG+w==}
@@ -2434,6 +2447,8 @@ snapshots:
   lodash.partial@4.2.1: {}
 
   lodash.startcase@4.4.0: {}
+
+  lodash.startswith@4.2.1: {}
 
   lodash@4.17.23: {}
 

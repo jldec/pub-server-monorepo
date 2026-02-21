@@ -1,0 +1,33 @@
+{
+  "name": "marked-images",
+  "version": "3.1.0",
+  "description": "Simple marked renderer for image attributes in markdown. Also generates vimeo links.",
+  "main": "marked-images.js",
+  "peerDependencies": {
+    "marked": "^4.3.0"
+  },
+  "dependencies": {
+    "lodash.startswith": "^4.2.1"
+  },
+  "devDependencies": {
+    "marked": "^4.3.0"
+  },
+  "files": [
+    "marked-images.js"
+  ],
+  "scripts": {
+    "test": "eslint . && tape test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jldec/pub-server-monorepo.git",
+    "directory": "packages/marked-images"
+  },
+  "keywords": [
+    "markdown",
+    "images",
+    "html"
+  ],
+  "author": "Jürgen Leschner",
+  "license": "MIT"
+}
