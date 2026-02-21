@@ -1,0 +1,22 @@
+{
+  "name": "pub-preview",
+  "version": "1.3.9",
+  "description": "Browserify script for client-side navigation and pub-pkg-editor preview rendering (uses jQuery)",
+  "main": "browser-script.js",
+  "dependencies": {
+    "page": "^1.11.6"
+  },
+  "devDependencies": {},
+  "files": [
+    "browser-script.js",
+    "jqueryview.js",
+    "pub-preview.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jldec/pub-server-monorepo.git",
+    "directory": "packages/pub-preview"
+  },
+  "author": "Jürgen Leschner",
+  "license": "MIT"
+}
