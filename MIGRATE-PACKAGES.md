@@ -7,7 +7,11 @@ Quick reference for migrating packages from `/Users/jurgen/pub` into the monorep
 ## Steps to Migrate a Package
 
 ### Create a Feature Branch
+Start on main and confirm the previous migration has been merged:
 ```bash
+git checkout main
+git pull
+git log --oneline -3  # confirm latest migration commit is present
 git checkout -b migrate-PACKAGE_NAME
 ```
 

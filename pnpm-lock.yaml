@@ -32,6 +32,8 @@ importers:
 
   packages/date-plus: {}
 
+  packages/logger-emitter: {}
+
   packages/node-queue4:
     dependencies:
       debug:
