@@ -1,0 +1,531 @@
+/**
+ * helpers.js
+ *
+ * template rendering helpers
+ * registers each helper with generator.handlebars
+ *
+ * Copyright (c) 2015-2026 Jürgen Leschner - github.com/jldec - MIT license
+ *
+**/
+/*eslint no-unused-vars: ["error", { "argsIgnorePattern": "frame" }]*/
+
+var u = require('pub-util');
+
+module.exports = function helpers(generator) {
+
+  var opts = generator.opts;
+
+  var hb = generator.handlebars;
+
+  // document templates call {{{renderLayout}}} to generate main body html for a page
+  hb.registerHelper('renderLayout', function(frame) {
+    return generator.renderLayout(this);
+  });
+
+  // layout templates call {{{renderPage}}} to generate inner html for a page using page.template
+  hb.registerHelper('renderPage', function(frame) {
+    return generator.renderPage(this);
+  });
+
+  // return html for the current page/fragment or markdown in txt
+  hb.registerHelper('html', function(txt, frame) {
+    var text = hbp(txt);
+    var fragment = text ? { _txt:text, _href:'/#synthetic' } : this;
+    var opts = text ? { noWrap:true } : {};
+    return generator.renderHtml(fragment, renderOpts(opts));
+  });
+
+  // like 'html' without wrapping in an editor div (for menus)
+  hb.registerHelper('html-noWrap', function(frame) {
+    return generator.renderHtml(this, renderOpts({ noWrap:true }));
+  });
+
+  // like 'html-noedit' with fully qualified urls (for feeds)
+  hb.registerHelper('html-fq', function(frame) {
+    return generator.renderHtml(this, renderOpts(
+      { noWrap: true,
+        fqLinks: opts.appUrl,
+        fqImages: (opts.fqImages || { url:opts.appUrl } )
+      }
+    ));
+  });
+
+  // like {{with x}} but supports named fragments, and tests if publishable.
+  hb.registerHelper('withFragment', function(ref, frame) {
+    var fragment = resolve(ref, this);
+    if (fragment && !(opts.production && fragment.nopublish)) {
+      return hb.helpers['with'].call(this, fragment, frame);
+    }
+    return frame.inverse(this);
+  });
+
+  // test whether a named/referenced fragment or pattern exists and is publishable.
+  hb.registerHelper('ifFragment', function(pattern, frame) {
+    var fragments = selectFragments(pattern, this);
+    if (fragments.length) { return frame.fn(this); }
+    return frame.inverse(this);
+  });
+
+  // return html for a referenced page or page-fragment
+  hb.registerHelper('fragmentHtml', function(ref, frame) {
+    var fragment = resolve(ref, this);
+    return generator.renderHtml(fragment, renderOpts());
+  });
+
+  // returns frame root (page) renderOpts merged with input renderOpts
+  function renderOpts(rOpts) { return u.assign({}, generator.renderOpts(), rOpts); }
+
+  hb.renderOpts = renderOpts;
+
+  // return html from applying another template
+  hb.registerHelper('partial', function(template, frame) {
+    return generator.renderTemplate(this, template);
+  });
+
+  // block-helper for rendering all content pages e.g. to generate nav/toc
+  hb.registerHelper('eachPage', function(frame) {
+    var localdata = hb.createFrame(frame.data);
+    var map = u.map(generator.contentPages, function(page, index) {
+      localdata.index = index;
+      return frame.fn(page, { data:localdata });
+    });
+    return map.join('');
+  });
+
+
+  // block-helper for fragments matching pattern
+  // fragment pattern should start with #... or /page#...
+  hb.registerHelper('eachFragment', function(pattern, frame) {
+    var p = hbp(pattern);
+    frame = p ? frame : pattern;
+    var localdata = hb.createFrame(frame.data);
+    var rg = selectFragments(p, this);
+    var map = u.map(rg, function(fragment, index) {
+      localdata.index = index;
+      if (index === rg.length - 1) { localdata.last = true; }
+      return frame.fn(fragment, { data:localdata });
+    });
+    return map.join('');
+  });
+
+  // block-helper for fragments matching pattern
+  // fragment pattern should start with #... or /page#...
+  hb.registerHelper('eachFragmentSorted', function(pattern, frame) {
+    var p = hbp(pattern);
+    frame = p ? frame : pattern;
+    var localdata = hb.createFrame(frame.data);
+    var rg = u.sortBy(selectFragments(p, this), 'sort');
+    var map = u.map(rg, function(fragment, index) {
+      localdata.index = index;
+      if (index === rg.length - 1) { localdata.last = true; }
+      return frame.fn(fragment, { data:localdata });
+    });
+    return map.join('');
+  });
+
+  // lookup multiple fragments via href pattern match
+  // works like resolve with a wildcard
+  // careful using this without #
+  function selectFragments(refpat, context) {
+    refpat = refpat || '#';
+    if (/^#/.test(refpat)) {
+      refpat = '^' + u.escapeRegExp((context._href || '/') + refpat);
+    }
+    else {
+      refpat = u.escapeRegExp(refpat);
+    }
+    var re = new RegExp(refpat);
+    return u.filter(generator.fragments, function(fragment) {
+      return re.test(fragment._href) && !(opts.production && fragment.nopublish);
+    });
+  }
+
+  // return frame.data.index mod n (works only inside eachPage or eachFragment)
+  hb.registerHelper('mod', function(n, frame) {
+    return frame.data.index % n || 0;
+  });
+
+  // return link html for this
+  hb.registerHelper('pageLink', function(frame) {
+    return generator.renderLink(renderOpts( { href:this._href } ));
+  });
+
+  // return link href for this
+  hb.registerHelper('pageHref', function(frame) {
+    return generator.renderLink(renderOpts( { href:this._href, hrefOnly:true } ));
+  });
+
+  // return link html for a url/name
+  hb.registerHelper('linkTo', function(url, name, frame) {
+    return generator.renderLink(renderOpts( { href:url, text:name } ));
+  });
+
+  // return link to next page
+  hb.registerHelper('next', function(frame) {
+    return (this._next ? generator.renderLink(renderOpts( { href:this._next._href } )) : '');
+  });
+
+  // return link to previous page
+  hb.registerHelper('prev', function(frame) {
+    return (this._prev ? generator.renderLink(renderOpts( { href:this._prev._href } )) : '');
+  });
+
+  // encode URI component
+  hb.registerHelper('uqt', u.uqt);
+
+  // escape csv values containing , or "
+  hb.registerHelper('csvqt', u.csvqt);
+
+  // page titles use page.title or page.name by convention allowing SEO override of title different from name
+  hb.registerHelper('title', function(frame) {
+    return this.title || this.name || u.unslugify(this._href);
+  });
+
+  // block helper applies headers for values with pattern meta-<name>: <value>
+  hb.registerHelper('eachMeta', function(frame) {
+    var metakeys = u.filter(u.keys(this), function(key) { return /^meta-/.test(key); });
+    return u.map(u.pick(this, metakeys), function(val, key) {
+      return frame.fn({ name:key.slice(5), content:val }); }).join('');
+  });
+
+  hb.registerHelper('fqurl', function(frame) {
+    return opts.appUrl + this._href;
+  });
+
+  hb.registerHelper('option', function(opt, frame) {
+    return opts[opt];
+  });
+
+  hb.registerHelper('ifOption', function(opt, frame) {
+    if (opts[opt]) { return frame.fn(this); }
+    else { return frame.inverse(this); }
+  });
+
+  hb.registerHelper('ifDev', function(frame) {
+    if (!opts.production) { return frame.fn(this); }
+    else { return frame.inverse(this); }
+  });
+
+  hb.registerHelper('eachwith', function(context, frame) {
+    var oh = frame && frame.hash;
+    var rg = (u.keys(oh)[0] && oh[u.keys(oh)[0]]) ? u.where(context, oh) : context; // filter iff oh has a value
+    return u.map(rg, frame.fn).join('');
+  });
+
+  hb.registerHelper('ifeq',    function(a, b, frame) {
+    if (a==b) return frame.fn(this);
+    return frame.inverse(this);
+  });
+
+  hb.registerHelper('ifnoteq', function(a, b, frame) {
+    if (a!=b) return frame.fn(this);
+    return frame.inverse(this);
+  });
+
+  hb.registerHelper('url1', function() {
+    return url1(this._href);
+  });
+
+  // returns name in first level of url
+  function url1(url){
+    var match = (url).match(/^\/([^/]*)/);
+    return match && match[1] || '';
+  }
+
+  // render nested ul-li structure for children of root, groupBy propname
+  // use defaultGroup name if groupBy prop is undefined
+  // groupBy and defaultGroup must either both be specified or no args passed
+  // note: result does not include root
+  hb.registerHelper('pageTree', function(groupBy, defaultGroup, frame) {
+    if (!hbp(groupBy)) { frame = groupBy; groupBy = defaultGroup = null; }
+
+    return generator.renderPageTree(
+      generator.home,
+      renderOpts( { groupBy:groupBy, defaultGroup:defaultGroup } ));
+  });
+
+  hb.registerHelper('eachPageWithTemplate', function(tname, frame) {
+    return u.map(generator.templatePages$[tname], frame.fn).join('');
+  });
+
+  // resolve references to fragments directly or via href string
+  function resolve(ref, context) {
+    if (typeof ref !== 'string') return ref;
+    if (/^#/.test(ref)) { ref = (context._href || '/') + ref; }
+    return generator.fragment$[ref];
+  }
+
+  // determine language string for a page
+  function pageLang(page) {
+    return page.lang ||
+      opts.lang ||
+      (opts.langDirs && !u.isRootLevel(page._href) && u.topLevel(page._href)) ||
+      'en';
+  }
+
+  // expose to plugins
+  hb.pageLang = pageLang;
+
+  function rtl(page) {
+    var code = pageLang(page).replace(/-.*/,'');
+    var rtlcodes = ['ar','arc','dv','ha','he','khw','ks','ku','ps','ur','yi'];
+    return page.rtl || u.contains(rtlcodes, code);
+  }
+
+  hb.registerHelper('lang', function(frame) {
+    return 'lang="' + pageLang(this) + '"';
+  });
+
+
+  hb.registerHelper('rtl', function(frame) {
+    return 'dir="' + (rtl(this) ? 'rtl' : 'auto') + '"';
+  });
+
+  hb.registerHelper('layout-class', function(frame) {
+    var list = [];
+    if (this['layout-class']) { list.push(this['layout-class']); }
+    list.push(this._href === '/' ? 'root' : u.slugify(this._href));
+    return 'class="' + list.join(' ') + '"';
+  });
+
+  function githubText(page) {
+    switch (pageLang(page)) {
+    case 'fr':    return 'Forkez-moi sur GitHub';
+    case 'he':    return 'צור פיצול בGitHub';
+    case 'id':    return 'Fork saya di GitHub';
+    case 'ko':    return 'GitHub에서 포크하기';
+    case 'pt-br': return 'Faça um fork no GitHub';
+    case 'pt-pt': return 'Faz fork no GitHub';
+    case 'tr':    return 'GitHub üstünde Fork edin';
+    case 'uk':    return 'скопіювати на GitHub';
+    default:      return 'Fork me on GitHub';
+    }
+  }
+
+  hb.registerHelper('githubBadge', function(frame) {
+    if (opts.github) {
+      return u.format(
+        '<p class="badge"><a href="%s">%s</a></p>',
+        opts.github,
+        this['github-text'] || githubText(this)
+      );
+    }
+  });
+
+  hb.registerHelper('credit', function(frame) {
+    if (opts.credit || !('credit' in opts)) {
+      var credit = opts.credit ||
+        'powered by ' +
+        '[pub-server](https://jldec.github.io/pub-doc/)' +
+        (opts.theme ? ' and [' + opts.theme.pkgName + '](' +
+          hb.githubUrl(opts.theme.pkgJson) + ')' : '');
+
+      return hb.defaultFragmentHtml(
+        '/#credit',
+        '_!heart_ ' + credit,
+        credit,
+        frame);
+    }
+  });
+
+  // turn list into single string of values separated by commas
+  hb.registerHelper('csv', u.csv);
+
+  // return current fragment ID or ''
+  hb.registerHelper('fragmentID', function() {
+    var h = u.parseHref(this._href);
+    return (h.fragment && h.fragment.slice(1)) || '';
+  });
+
+  hb.registerHelper('relPath', function(frame) {
+    return relPath();
+  });
+
+  function relPath() {
+    return renderOpts().relPath || '';
+  }
+
+  hb.registerHelper('fixPath', function(href) {
+    return fixPath(href);
+  });
+
+  // logic for properly qualifying image src urls
+  function fixPath(href) {
+    return generator.rewriteLink(href, renderOpts());
+  }
+
+  // also expose to plugins
+  hb.relPath = relPath;
+  hb.fixPath = fixPath;
+
+  // inject CSS from themes and packages
+  hb.registerHelper('injectCss', function(frame) {
+    return u.map(opts.injectCss, function(css) {
+      return '<link rel="stylesheet" href="' + relPath() + css.path + '">';
+    }).join('\n');
+  });
+
+  // inject javascript from themes and packages
+  hb.registerHelper('injectJs', function(frame) {
+    var pubRef = JSON.stringify( { href:this._href, relPath:relPath() } );
+    return '<script>window.pubRef = ' + pubRef + ';</script>\n' +
+      u.map(opts.injectJs, function(js) {
+        return '<script src="' + relPath() + js.path + '" ' + (js.async || '') + '></script>';
+      }).join('\n');
+  });
+
+  // turn text with line breaks into escaped html with <br>
+  hb.registerHelper('hbr', u.hbreak);
+
+  // return JSON for value passed as parameter, handles undefined as '""'
+  hb.registerHelper('json', function(val, frame) {
+    return JSON.stringify(val) || '""';
+  });
+
+  // return value coerced to finite Number or 0
+  hb.registerHelper('number', function(val, frame) {
+    var v = Number(val);
+    return (v === v && v !== Infinity) ? v : 0;
+  });
+
+  // Warning: this helper only works with legacy page/fragment frontmatter
+  // TODO: re-implement using generator built-in parser and fragment-level diffing
+  hb.registerHelper('difftext', function() {
+    var s = '';
+    var pagecontext = '';
+    var context = '';
+    var firstcontext = '';
+    var page = '';
+    var fragments = '';
+    var m;
+    var last = u.size(this.diff) - 1;
+    u.each(this.diff, function(v,i) {
+      // grab page or fragment href
+      if (i < last && (m = v.value.match(/\n\s*(page|fragment):([^\n]*\n)/g))) {
+        pagecontext = u.trim(m[0]); // first match
+        context = u.trim(m.slice(-1)[0]); // last match
+        page = page || pagecontext.replace(/^(page|fragment):\s*/, '');
+        fragments = fragments + (fragments ? ', ' : '') + context;
+        // if the first change is a fragment, adjust page to point to fragment.
+        if (!firstcontext) {
+          firstcontext = context;
+          if (context.match(/^fragment:/)) {
+            var fragment = context.replace(/^fragment:\s*/, '');
+            page = fragment.match(/^#/) ? page + fragment : fragment;
+          }
+        }
+      }
+      var sep = context.replace(/./g, '=');
+      sep = sep ? '\n' + sep + '\n' + context + '\n' + sep + '\n' : '\n';
+      if (v.added) {
+        s +=  sep + '> > > > > added > > > > >\n'+v.value;
+        context = '';
+      }
+      if (v.removed) {
+        s += sep + '< < < < < removed < < < < <\n'+v.value;
+        context = '';
+      }
+    });
+    this.difftext = s || 'no change';
+    this.diffpage = page;
+    this.difffragments = fragments || this.file;
+    return this.difftext;
+  });
+
+  // try user-provided fragment, then faMarkdown with font-awesome, then html
+  // treat 3rd parameter as markdown if it doesn't contain <
+  function defaultFragmentHtml(fragmentName, faMarkdown, html, frame) {
+
+    var f = generator.fragment$[fragmentName];
+    if (f) return fragmentHtml(f);
+
+    if (faMarkdown && u.find(opts.pkgs, function(pkg) {
+      return ('pub-pkg-font-awesome' === pkg.pkgName);
+    })) {
+      return fragmentHtml( { _txt:faMarkdown, _href:'/#synthetic' }, {noWrap:1});
+    }
+    return /</.test(html) ? html :
+      fragmentHtml( {_txt:html, _href:'/#synthetic' }, {noWrap:1});
+  }
+
+  function fragmentHtml(fragment, opts) {
+    return generator.renderHtml(fragment, renderOpts(opts));
+  }
+
+  function githubUrl(pkgJson) {
+    pkgJson = pkgJson || opts.pkgJson || {};
+    var url =
+       typeof pkgJson.repository === 'string' ? pkgJson.repository :
+       typeof pkgJson.repository === 'object' ? (pkgJson.repository.url || '') :
+       '';
+    return url.replace(/^git:\/\//, 'https://').replace(/\.git$/,'');
+  }
+
+  hb.defaultFragmentHtml = defaultFragmentHtml;
+  hb.githubUrl = githubUrl;
+
+  //--//--//--//--//--//--//--//--//--//--//
+  // the following helpers are variadic   //
+  //--//--//--//--//--//--//--//--//--//--//
+
+  hb.registerHelper('fullDate',    function(d) { return u.date(hbp(d)).format('fullDate'); });
+  hb.registerHelper('mediumDate',  function(d) { return u.date(hbp(d)).format('mediumDate'); });
+  hb.registerHelper('longDate',    function(d) { return u.date(hbp(d)).format('longDate'); });
+  hb.registerHelper('shortDate',   function(d) { return u.date(hbp(d)).format('m/d/yyyy'); });
+  hb.registerHelper('isoDateTime', function(d) { return u.date(hbp(d)).format('isoDateTime'); });
+  hb.registerHelper('xmlDateTime', function(d) { return u.date(hbp(d)).format('yyyy-mm-dd\'T\'HH:MM:ss'); });
+  hb.registerHelper('dateTime',    function(d) { return u.date(hbp(d)).format(); });
+
+  // render img using markdown renderer
+  // src defaults to this.image or this.icon - returns '' if no src
+  // text defaults to this.name and is optional
+  // title is optional
+  hb.registerHelper('image', function(src, text, title) {
+    var o = { href: hbp(src) || this.image || this.icon };
+    if (!o.href) {
+      if (this.imagelink) return hb.helpers['html'].call(this, this.imagelink, src); // src == frame
+      return '';
+    }
+    o.text = hbp(text) || this.name || '';
+    o.title = hbp(title);
+    return generator.renderImage(renderOpts(o));
+  });
+
+  // render option or page-property as an HTML comment
+  hb.registerHelper('comment', function(prop) {
+    prop = hbp(prop);
+    if (prop) return '<!-- ' + u.escape(this[prop] || opts[prop] || prop) + ' -->';
+  });
+
+  // helper helper to make undefined the frame arg passed to all helpers
+  // useful for simulating variadic helpers that call variadic functions like u.date()
+  // assumes that the hash + data props are unique to hb frame objects
+  function hbp(x) { return (x && x.hash && x.data) ? undefined : x; }
+
+  // expose to plugins
+  hb.hbp = hbp;
+
+  //--//--//--//--//--//--//--//--//--//--//--//--//--//
+  // the following helpers require generator state    //
+  // will not work correctly except on live server    //
+  //--//--//--//--//--//--//--//--//--//--//--//--//--//
+
+  hb.registerHelper('route', function(frame) {
+    return generator.route || '/';
+  });
+
+  hb.registerHelper('if-authenticated', function(frame) {
+    var user = generator.req && generator.req.user;
+    if (user) return frame.fn(this);
+    else return frame.inverse(this);
+  });
+
+  hb.registerHelper('user', function() {
+    return (generator.req && generator.req.user) || '';
+  });
+
+  hb.registerHelper('eachUpload', function(frame) {
+    return u.map(generator.req && generator.req.files, frame.fn).join('');
+  });
+
+};

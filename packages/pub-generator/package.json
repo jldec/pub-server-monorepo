@@ -1,0 +1,47 @@
+{
+  "name": "pub-generator",
+  "version": "4.4.0",
+  "description": "markdown/handlebars site generator - runs in node or browser",
+  "main": "generator.js",
+  "dependencies": {
+    "asyncbuilder": "workspace:*",
+    "debug": "4.3.6",
+    "handlebars": "^4.7.8",
+    "js-yaml": "^4.1.0",
+    "marked": "^4.3.0",
+    "marked-forms": "workspace:*",
+    "pub-resolve-opts": "workspace:*",
+    "pub-src-http": "workspace:*",
+    "pub-util": "workspace:*"
+  },
+  "devDependencies": {
+    "deep-diff": "^1.0.2",
+    "pub-src-fs": "workspace:*"
+  },
+  "files": [
+    "fragment.js",
+    "generator.js",
+    "getsourcefiles.js",
+    "getsources.js",
+    "helpers.js",
+    "makepages.js",
+    "output.js",
+    "parsefiles.js",
+    "parsefragments.js",
+    "parseheaders.js",
+    "parselabel.js",
+    "render.js",
+    "serialize.js",
+    "update.js"
+  ],
+  "scripts": {
+    "test": "tape test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jldec/pub-server-monorepo.git",
+    "directory": "packages/pub-generator"
+  },
+  "author": "Jürgen Leschner",
+  "license": "MIT"
+}
