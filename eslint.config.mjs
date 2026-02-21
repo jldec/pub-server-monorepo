@@ -28,8 +28,10 @@ export default [
         // Browser globals
         window: 'readonly',
         document: 'readonly',
+        location: 'readonly',
         performance: 'readonly',
         fetch: 'readonly',
+        $: 'readonly',
       },
     },
     rules: {
