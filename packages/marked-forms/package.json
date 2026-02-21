@@ -1,0 +1,33 @@
+{
+  "name": "marked-forms",
+  "version": "5.1.0",
+  "description": "generate HTML labels and input controls from markdown",
+  "main": "marked-forms.js",
+  "dependencies": {},
+  "peerDependencies": {
+    "marked": "^4.3.0"
+  },
+  "devDependencies": {
+    "marked": "^4.3.0"
+  },
+  "files": [
+    "marked-forms.js"
+  ],
+  "scripts": {
+    "test": "eslint . && tape test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jldec/pub-server-monorepo.git",
+    "directory": "packages/marked-forms"
+  },
+  "keywords": [
+    "markdown",
+    "forms",
+    "inputs",
+    "labels",
+    "html"
+  ],
+  "author": "Jürgen Leschner",
+  "license": "MIT"
+}
