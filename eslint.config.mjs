@@ -40,12 +40,8 @@ export default [
       'no-unused-vars': ['error', { argsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_' }],
     },
   },
-  // Exception for vendored dateformat.js file in date-plus package
+  // Ignore vendored files
   {
-    files: ['packages/date-plus/dateformat.js'],
-    rules: {
-      'indent': 'off',
-      'no-undef': 'off', // Uses AMD define() which is okay for vendored code
-    },
+    ignores: ['packages/pub-pkg-jquery/js/**', 'packages/date-plus/dateformat.js'],
   },
 ];

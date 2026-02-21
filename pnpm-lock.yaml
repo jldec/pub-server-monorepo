@@ -44,6 +44,8 @@ importers:
         specifier: ^7.0.2
         version: 7.1.6
 
+  packages/pub-pkg-jquery: {}
+
   packages/pub-src-fs:
     dependencies:
       asyncbuilder:
