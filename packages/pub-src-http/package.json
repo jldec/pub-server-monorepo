@@ -1,12 +1,10 @@
 {
   "name": "pub-src-http",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "HTTP source for pub-server and pub-generator - uses built-in fetch in node and browser",
   "main": "pub-src-http.js",
-  "dependencies": {
-  },
-  "devDependencies": {
-  },
+  "dependencies": {},
+  "devDependencies": {},
   "files": [
     "pub-src-http.js"
   ],
