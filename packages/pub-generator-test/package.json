@@ -1,0 +1,22 @@
+{
+  "name": "pub-generator-test",
+  "version": "0.2.15",
+  "description": "standalone pub-generator test - not a published module",
+  "main": "pub-config.js",
+  "dependencies": {},
+  "devDependencies": {
+    "pub-generator": "workspace:*",
+    "pub-resolve-opts": "workspace:*",
+    "pub-src-fs": "workspace:*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jldec/pub-server-monorepo.git",
+    "directory": "packages/pub-generator-test"
+  },
+  "scripts": {
+    "test": "tape test/test*.js"
+  },
+  "author": "Jürgen Leschner",
+  "license": "MIT"
+}
