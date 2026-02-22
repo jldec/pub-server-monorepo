@@ -25,6 +25,8 @@ NOTE: If the package directory contains an `env` file, stop and ask user to clea
 cp -r /Users/jurgen/pub/PACKAGE_NAME packages/
 ```
 
+NOTE: The directory name under `packages/` should match the `name` field in `package.json`. Rename after copying if needed.
+
 ### Clean Up Package Directory
 ```bash
 cd packages/PACKAGE_NAME
