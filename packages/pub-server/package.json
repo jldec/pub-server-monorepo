@@ -1,0 +1,66 @@
+{
+  "name": "pub-server",
+  "version": "2.13.1",
+  "description": "markdown site generator, web server, and editor",
+  "main": "server.js",
+  "preferGlobal": true,
+  "bin": {
+    "pub": "./bin/pub.js"
+  },
+  "dependencies": {
+    "asyncbuilder": "workspace:*",
+    "body-parser": "^1.20.2",
+    "browserify": "^17.0.0",
+    "chokidar": "^3.6.0",
+    "commander": "^2.20.0",
+    "compression": "^1.7.4",
+    "debug": "4.3.6",
+    "express": "^4.19.2",
+    "fs-extra": "^11.2.0",
+    "mime": "^3.0.0",
+    "pub-generator": "workspace:*",
+    "pub-pkg-editor": "workspace:*",
+    "pub-pkg-font-awesome": "workspace:*",
+    "pub-pkg-font-open-sans": "workspace:*",
+    "pub-pkg-google-oauth": "workspace:*",
+    "pub-pkg-highlight": "workspace:*",
+    "pub-pkg-jquery": "workspace:*",
+    "pub-pkg-prism": "workspace:*",
+    "pub-pkg-seo": "workspace:*",
+    "pub-resolve-opts": "workspace:*",
+    "pub-serve-sessions": "workspace:*",
+    "pub-src-fs": "workspace:*",
+    "pub-src-github": "workspace:*",
+    "pub-src-http": "workspace:*",
+    "pub-src-redis": "workspace:*",
+    "pub-theme-doc": "workspace:*",
+    "pub-util": "workspace:*",
+    "send": "^0.18.0",
+    "socket.io": "^4.7.5",
+    "through2": "^4.0.2",
+    "uglify-js": "^3.19.3"
+  },
+  "files": [
+    "bin/",
+    "client/",
+    "server/",
+    "server.js"
+  ],
+  "scripts": {
+    "test": "tape test/*.js"
+  },
+  "keywords": [
+    "markdown",
+    "editor",
+    "publish",
+    "website",
+    "generator"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jldec/pub-server-monorepo.git",
+    "directory": "packages/pub-server"
+  },
+  "author": "Jürgen Leschner",
+  "license": "MIT"
+}
