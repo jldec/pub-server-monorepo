@@ -48,6 +48,6 @@ export default [
   },
   // Ignore vendored files
   {
-    ignores: ['packages/pub-pkg-jquery/js/**', 'packages/date-plus/dateformat.js'],
+    ignores: ['packages/pub-pkg-jquery/js/**', 'packages/date-plus/dateformat.js', 'packages/pub-pkg-font-awesome/css/**', 'packages/pub-pkg-font-awesome/docs/**', 'packages/pub-pkg-font-awesome/docs-src/**', 'packages/pub-pkg-font-awesome/fonts/**'],
   },
 ];
