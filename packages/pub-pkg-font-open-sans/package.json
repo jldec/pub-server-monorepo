@@ -1,6 +1,6 @@
 {
   "name": "pub-pkg-font-open-sans",
-  "version": "1.5.1",
+  "version": "2.0.0",
   "description": "pub-server package for publishing with the Open Sans font",
   "main": "pub-config.js",
   "dependencies": {

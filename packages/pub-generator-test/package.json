@@ -1,6 +1,6 @@
 {
   "name": "pub-generator-test",
-  "version": "0.2.15",
+  "version": "1.0.0",
   "description": "standalone pub-generator test - not a published module",
   "main": "pub-config.js",
   "dependencies": {},

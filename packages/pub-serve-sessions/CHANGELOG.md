@@ -1,0 +1,7 @@
+# pub-serve-sessions
+
+## 3.0.0
+
+### Major Changes
+
+- 29179e2: move to monorepo
