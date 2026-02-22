@@ -19,6 +19,20 @@ on:
       - '.gitattributes'
 
 jobs:
+  changes:
+    name: Detect changes
+    runs-on: ubuntu-latest
+    outputs:
+      redis: ${{ steps.filter.outputs.redis }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            redis:
+              - 'packages/pub-src-redis/**'
+
   test:
     name: Test on Node ${{ matrix.node }} - ${{ matrix.os }}
     strategy:
@@ -58,6 +72,8 @@ jobs:
 
   test-redis:
     name: Test pub-src-redis on Node ${{ matrix.node }}
+    needs: changes
+    if: needs.changes.outputs.redis == 'true'
     strategy:
       matrix:
         node: [22, 24, 25]
