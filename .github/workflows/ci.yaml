@@ -50,7 +50,7 @@ jobs:
         run: pnpm run lint
 
       - name: Test all packages (except pub-src-redis which needs Redis)
-        run: pnpm run test -r --filter '!pub-src-redis'
+        run: pnpm --filter '!pub-src-redis' run test
         env:
           ECHO_ENDPOINT: ${{ secrets.ECHO_ENDPOINT }}
           ECHO_ENDPOINT_TOKEN: ${{ secrets.ECHO_ENDPOINT_TOKEN }}
@@ -86,4 +86,4 @@ jobs:
         run: pnpm install
 
       - name: Test pub-src-redis
-        run: pnpm run test --filter pub-src-redis
+        run: pnpm --filter pub-src-redis run test
