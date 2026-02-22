@@ -50,10 +50,11 @@ test('test put, validate, and restore', { timeout:60000 }, function(t) {
         t.error(err);
         expected[0].text = overwrite;
         expected[0].sha = '48f8d620cadffa21b93555c16e4da054e4a471d9';
-        source.get(function(err, files) {
+        // delay to allow GitHub Contents API cache to update after ref change
+        setTimeout(function() { source.get(function(err, files) {
           t.deepEqual(files, expected);
           t.end(err);
-        });
+        }); }, 2000);
       });
     });
   });
