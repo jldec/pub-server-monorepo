@@ -1,0 +1,28 @@
+{
+  "name": "pub-serve-sessions",
+  "version": "2.0.1",
+  "description": "express session module for pub-server and pub-gatekeeper",
+  "main": "serve-sessions.js",
+  "dependencies": {
+    "redis": "^3.1.2",
+    "connect-redis": "^6.0.0",
+    "express-session": "^1.18.0",
+    "pub-util": "workspace:*"
+  },
+  "devDependencies": {},
+  "files": [
+    "serve-sessions.js"
+  ],
+  "keywords": [
+    "pub-server",
+    "sessions",
+    "redis"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jldec/pub-server-monorepo.git",
+    "directory": "packages/pub-serve-sessions"
+  },
+  "author": "Jürgen Leschner",
+  "license": "MIT"
+}
