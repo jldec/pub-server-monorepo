@@ -1,0 +1,27 @@
+{
+  "name": "pub-pkg-prism",
+  "version": "2.0.5",
+  "description": "pub-server plugin for v1.26 of prism.js syntax highlighting",
+  "main": "pub-config.js",
+  "dependencies": {},
+  "files": [
+    "css/",
+    "js/",
+    "generator-plugin.js",
+    "pub-config.js",
+    "LICENSE-PRISM"
+  ],
+  "keywords": [
+    "publish",
+    "syntax",
+    "highlight",
+    "prism"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jldec/pub-server-monorepo.git",
+    "directory": "packages/pub-pkg-prism"
+  },
+  "author": "Jürgen Leschner",
+  "license": "MIT"
+}

@@ -48,6 +48,24 @@ export default [
   },
   // Ignore vendored files
   {
-    ignores: ['packages/pub-pkg-jquery/js/**', 'packages/date-plus/dateformat.js', 'packages/pub-pkg-font-awesome/css/**', 'packages/pub-pkg-font-awesome/docs/**', 'packages/pub-pkg-font-awesome/docs-src/**', 'packages/pub-pkg-font-awesome/fonts/**'],
+    ignores: [
+      'packages/pub-pkg-jquery/js/**',
+      'packages/date-plus/dateformat.js',
+      'packages/pub-pkg-font-awesome/css/**',
+      'packages/pub-pkg-font-awesome/docs/**',
+      'packages/pub-pkg-font-awesome/docs-src/**',
+      'packages/pub-pkg-font-awesome/fonts/**',
+      'packages/pub-pkg-font-open-sans/docs/**',
+      'packages/pub-pkg-font-open-sans/docs-src/**',
+      'packages/pub-pkg-highlight/docs/**',
+      'packages/pub-pkg-highlight/js/**',
+      'packages/pub-pkg-highlight/example/**',
+      'packages/pub-pkg-prism/docs/**',
+      'packages/pub-pkg-prism/js/**',
+      'packages/pub-pkg-prism/css/**',
+      'packages/pub-pkg-prism/example/**',
+      'packages/pub-theme-doc/css/**',
+      'packages/pub-theme-doc/templates/**',
+    ],
   },
 ];

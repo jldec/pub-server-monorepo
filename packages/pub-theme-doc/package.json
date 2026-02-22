@@ -1,0 +1,27 @@
+{
+  "name": "pub-theme-doc",
+  "version": "1.2.0",
+  "description": "pub-server documentation theme",
+  "main": "pub-config.js",
+  "dependencies": {
+    "github-markdown-css": "^5.6.1"
+  },
+  "files": [
+    "css/",
+    "plugins/",
+    "templates/",
+    "pub-config.js"
+  ],
+  "keywords": [
+    "publish",
+    "markdown",
+    "documentation"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jldec/pub-server-monorepo.git",
+    "directory": "packages/pub-theme-doc"
+  },
+  "author": "Jürgen Leschner",
+  "license": "MIT"
+}

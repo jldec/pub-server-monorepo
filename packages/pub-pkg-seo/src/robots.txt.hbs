@@ -1,0 +1,6 @@
+user-agent: *
+{{#ifOption 'noRobots'}}
+disallow: /
+{{else}}
+allow: /
+{{/ifOption}}

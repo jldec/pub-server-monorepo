@@ -1,0 +1,31 @@
+{
+  "name": "pub-pkg-font-open-sans",
+  "version": "1.5.1",
+  "description": "pub-server package for publishing with the Open Sans font",
+  "main": "pub-config.js",
+  "dependencies": {
+    "open-sans-fontface": "^1.4.0"
+  },
+  "devDependencies": {
+    "pub-pkg-show-font": "workspace:*"
+  },
+  "files": [
+    "pub-config.js",
+    "open-sans.css"
+  ],
+  "keywords": [
+    "pub-server",
+    "publish",
+    "markdown",
+    "font",
+    "open-sans"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jldec/pub-server-monorepo.git",
+    "directory": "packages/pub-pkg-font-open-sans"
+  },
+  "scripts": {},
+  "author": "Jürgen Leschner",
+  "license": "MIT AND Apache-2.0"
+}

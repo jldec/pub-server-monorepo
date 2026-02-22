@@ -1,0 +1,27 @@
+{
+  "name": "pub-pkg-google-oauth",
+  "version": "3.0.0",
+  "description": "pub-server plugin for google oauth",
+  "main": "pub-config.js",
+  "dependencies": {
+    "passport": "^0.7.0",
+    "passport-google-oauth": "^2.0.0"
+  },
+  "devDependencies": {},
+  "files": [
+    "login/",
+    "static/",
+    "google-oauth.js",
+    "pub-config.js"
+  ],
+  "scripts": {
+    "test": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jldec/pub-server-monorepo.git",
+    "directory": "packages/pub-pkg-google-oauth"
+  },
+  "author": "Jürgen Leschner",
+  "license": "MIT"
+}
