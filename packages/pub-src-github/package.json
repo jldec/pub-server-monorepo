@@ -1,0 +1,28 @@
+{
+  "name": "pub-src-github",
+  "version": "2.1.0",
+  "description": "GitHub source for pub-server and pub-generator",
+  "main": "pub-src-github.js",
+  "dependencies": {
+    "asyncbuilder": "workspace:*",
+    "debug": "4.3.6",
+    "pub-src-fs": "workspace:*",
+    "pub-util": "workspace:*",
+    "queue4": "workspace:*",
+    "superagent": "^8.0.6"
+  },
+  "files": [
+    "pub-src-github.js",
+    "github-base.js"
+  ],
+  "scripts": {
+    "test": "eslint . && dotenv -e ../../.env -- tape test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jldec/pub-server-monorepo.git",
+    "directory": "packages/pub-src-github"
+  },
+  "author": "Jürgen Leschner",
+  "license": "MIT"
+}
