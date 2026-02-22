@@ -23,15 +23,24 @@ jobs:
     name: Detect changes
     runs-on: ubuntu-latest
     outputs:
-      redis: ${{ steps.filter.outputs.redis }}
+      redis: ${{ steps.check.outputs.redis }}
     steps:
       - uses: actions/checkout@v4
-      - uses: dorny/paths-filter@v3
-        id: filter
         with:
-          filters: |
-            redis:
-              - 'packages/pub-src-redis/**'
+          fetch-depth: 0
+      - name: Check for pub-src-redis changes
+        id: check
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            BASE=${{ github.event.pull_request.base.sha }}
+          else
+            BASE=${{ github.event.before }}
+          fi
+          if git diff --name-only "$BASE" HEAD -- packages/pub-src-redis/ | grep -q .; then
+            echo "redis=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "redis=false" >> "$GITHUB_OUTPUT"
+          fi
 
   test:
     name: Test on Node ${{ matrix.node }} - ${{ matrix.os }}
