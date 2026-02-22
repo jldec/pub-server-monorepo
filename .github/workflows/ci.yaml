@@ -78,6 +78,7 @@ jobs:
           ECHO_ENDPOINT: ${{ secrets.ECHO_ENDPOINT }}
           ECHO_ENDPOINT_TOKEN: ${{ secrets.ECHO_ENDPOINT_TOKEN }}
           GH: ${{ secrets.GH }}
+          GH_BRANCH: test-node${{ matrix.node }}-${{ matrix.os == 'ubuntu-latest' && 'ubuntu' || 'macos' }}
 
   test-redis:
     name: Test pub-src-redis on Node ${{ matrix.node }}

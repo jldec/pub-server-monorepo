@@ -1,5 +1,6 @@
 # Package Migration Guide
 Quick reference for migrating packages from `/Users/jurgen/pub` into the monorepo.
+The order of package migration is listed in `/Users/jurgen/pub/dependency-graph.md`
 
 - session 1 - https://share.opencode.cloudflare.dev/share/ZySzv0bt 
 
@@ -17,6 +18,9 @@ git checkout -b migrate-PACKAGE_NAME
 
 ### Copy Package to Monorepo
 If the package is named `pub-NAME`, the source directory is `../NAME` (without the `pub-` prefix).
+
+NOTE: If the package directory contains an `env` file, stop and ask user to cleanup first.
+
 ```bash
 cp -r /Users/jurgen/pub/PACKAGE_NAME packages/
 ```

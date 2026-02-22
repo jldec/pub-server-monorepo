@@ -170,6 +170,27 @@ importers:
         specifier: ^3.0.2
         version: 3.0.2
 
+  packages/pub-src-github:
+    dependencies:
+      asyncbuilder:
+        specifier: workspace:*
+        version: link:../asyncbuilder
+      debug:
+        specifier: 4.3.6
+        version: 4.3.6
+      pub-src-fs:
+        specifier: workspace:*
+        version: link:../pub-src-fs
+      pub-util:
+        specifier: workspace:*
+        version: link:../pub-util
+      queue4:
+        specifier: workspace:*
+        version: link:../node-queue4
+      superagent:
+        specifier: ^8.0.6
+        version: 8.1.2
+
   packages/pub-src-http: {}
 
   packages/pub-src-redis:
@@ -1424,6 +1445,11 @@ packages:
 
   superagent@7.1.6:
     resolution: {integrity: sha512-gZkVCQR1gy/oUXr+kxJMLDjla434KmSOKbx5iGD30Ql+AkJQ/YlPKECJy2nhqOsHLjGHzoDTXNSjhnvWhzKk7g==}
+    engines: {node: '>=6.4.0 <13 || >=14'}
+    deprecated: Please upgrade to superagent v10.2.2+, see release notes at https://github.com/forwardemail/superagent/releases/tag/v10.2.2 - maintenance is supported by Forward Email @ https://forwardemail.net
+
+  superagent@8.1.2:
+    resolution: {integrity: sha512-6WTxW1EB6yCxV5VFOIPQruWGHqc3yI7hEmZK6h+pyk69Lk/Ut7rLUY6W/ONF2MjBuGjvmMiIpsrVJ2vjrHlslA==}
     engines: {node: '>=6.4.0 <13 || >=14'}
     deprecated: Please upgrade to superagent v10.2.2+, see release notes at https://github.com/forwardemail/superagent/releases/tag/v10.2.2 - maintenance is supported by Forward Email @ https://forwardemail.net
 
@@ -2984,6 +3010,21 @@ snapshots:
       mime: 2.6.0
       qs: 6.14.1
       readable-stream: 3.6.2
+      semver: 7.7.3
+    transitivePeerDependencies:
+      - supports-color
+
+  superagent@8.1.2:
+    dependencies:
+      component-emitter: 1.3.1
+      cookiejar: 2.1.4
+      debug: 4.3.6
+      fast-safe-stringify: 2.1.1
+      form-data: 4.0.5
+      formidable: 2.1.5
+      methods: 1.1.2
+      mime: 2.6.0
+      qs: 6.14.1
       semver: 7.7.3
     transitivePeerDependencies:
       - supports-color
