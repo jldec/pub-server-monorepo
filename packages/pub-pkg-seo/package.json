@@ -1,0 +1,33 @@
+{
+  "name": "pub-pkg-seo",
+  "version": "1.3.0",
+  "description": "pub-server package for generating robots.txt and sitemap.xml",
+  "main": "pub-config.js",
+  "dependencies": {},
+  "devDependencies": {
+    "pub-generator": "workspace:*",
+    "pub-resolve-opts": "workspace:*",
+    "pub-src-fs": "workspace:*"
+  },
+  "files": [
+    "pub-config.js",
+    "generator-plugin.js",
+    "src/"
+  ],
+  "keywords": [
+    "publish",
+    "seo",
+    "robots",
+    "sitemap"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jldec/pub-server-monorepo.git",
+    "directory": "packages/pub-pkg-seo"
+  },
+  "scripts": {
+    "test": "eslint . && tape test/norobots/norobots.test.js && tape test/yesrobots/yesrobots.test.js && tape test/canonical/canonical.test.js"
+  },
+  "author": "Jürgen Leschner",
+  "license": "MIT"
+}

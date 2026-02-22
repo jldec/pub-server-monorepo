@@ -1,0 +1,11 @@
+---- /robots.txt ----
+nocrawl:1
+nolayout:1
+template:robots.txt
+access:everyone
+
+---- /sitemap.xml ----
+nocrawl:1
+nolayout:1
+template:sitemap.xml
+access:everyone
