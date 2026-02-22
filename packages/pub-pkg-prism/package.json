@@ -1,6 +1,6 @@
 {
   "name": "pub-pkg-prism",
-  "version": "2.0.5",
+  "version": "3.0.0",
   "description": "pub-server plugin for v1.26 of prism.js syntax highlighting",
   "main": "pub-config.js",
   "dependencies": {},

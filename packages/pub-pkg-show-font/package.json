@@ -1,6 +1,6 @@
 {
   "name": "pub-pkg-show-font",
-  "version": "1.1.1",
+  "version": "2.0.0",
   "description": "Generates a /show-font page for viewing your font in different font weights and styles.",
   "main": "pub-config.js",
   "dependencies": {},
