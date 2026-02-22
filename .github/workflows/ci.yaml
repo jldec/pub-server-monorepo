@@ -24,11 +24,12 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       redis: ${{ steps.check.outputs.redis }}
+      github: ${{ steps.check.outputs.github }}
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Check for pub-src-redis changes
+      - name: Check for package changes
         id: check
         run: |
           if [ "${{ github.event_name }}" = "pull_request" ]; then
@@ -40,6 +41,11 @@ jobs:
             echo "redis=true" >> "$GITHUB_OUTPUT"
           else
             echo "redis=false" >> "$GITHUB_OUTPUT"
+          fi
+          if git diff --name-only "$BASE" HEAD -- packages/pub-src-github/ | grep -q .; then
+            echo "github=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "github=false" >> "$GITHUB_OUTPUT"
           fi
 
   test:
@@ -72,11 +78,44 @@ jobs:
       - name: Lint
         run: pnpm run lint
 
-      - name: Test all packages (except pub-src-redis which needs Redis)
-        run: pnpm --filter './packages/*' --filter '!pub-src-redis' run test
+      - name: Test all packages (except pub-src-redis and pub-src-github)
+        run: pnpm --filter './packages/*' --filter '!pub-src-redis' --filter '!pub-src-github' run test
         env:
           ECHO_ENDPOINT: ${{ secrets.ECHO_ENDPOINT }}
           ECHO_ENDPOINT_TOKEN: ${{ secrets.ECHO_ENDPOINT_TOKEN }}
+
+  test-github:
+    name: Test pub-src-github on Node ${{ matrix.node }} - ${{ matrix.os }}
+    needs: changes
+    if: needs.changes.outputs.github == 'true'
+    strategy:
+      matrix:
+        node: [22, 24, 25]
+        os:
+          - ubuntu-latest
+          - macos-latest
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node.js ${{ matrix.node }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Test pub-src-github
+        run: pnpm --filter pub-src-github run test
+        env:
           GH: ${{ secrets.GH }}
           GH_BRANCH: test-node${{ matrix.node }}-${{ matrix.os == 'ubuntu-latest' && 'ubuntu' || 'macos' }}
 
