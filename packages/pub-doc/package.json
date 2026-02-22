@@ -1,0 +1,22 @@
+{
+  "name": "pub-doc",
+  "private": true,
+  "version": "3.0.0",
+  "description": "source for pub-server docs - not a published npm module",
+  "main": "pub-config.js",
+  "dependencies": {
+    "pub-server": "workspace:*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jldec/pub-server-monorepo.git",
+    "directory": "packages/pub-doc"
+  },
+  "scripts": {
+    "pub": "pub",
+    "docs": "pub -S docs",
+    "generate": "rm -r docs/* ; pub -O"
+  },
+  "author": "Jürgen Leschner",
+  "license": "MIT"
+}

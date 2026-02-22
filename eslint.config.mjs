@@ -66,6 +66,7 @@ export default [
       'packages/pub-pkg-prism/example/**',
       'packages/pub-theme-doc/css/**',
       'packages/pub-theme-doc/templates/**',
+      'packages/pub-doc/docs/**',
     ],
   },
 ];
